@@ -1,5 +1,6 @@
 package com.example.vkeducationandroidkotlin
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -43,8 +44,8 @@ class MainActivity : ComponentActivity() {
                             val errorMessage = "Введите текст для открытия SecondActivity"
 
                             showToast(
-                                this@MainActivity,
-                                errorMessage
+                                context = this@MainActivity,
+                                text = errorMessage
                             )
                         } else {
                             val intent = Intent(
@@ -72,6 +73,37 @@ class MainActivity : ComponentActivity() {
 
                             startActivity(intent)
                         }
+                    },
+                    onShareText = { inputText ->
+                        if (inputText.isBlank()) {
+                            val errorMessage = "Введите текст в поле для ввода"
+
+                            showToast(
+                                context = this@MainActivity,
+                                text = errorMessage
+                            )
+                        } else {
+                            val intent = Intent(Intent.ACTION_SEND).apply {
+                                type = "text/plain"
+                                putExtra(Intent.EXTRA_TEXT, inputText)
+                            }
+
+                            val chooser = Intent.createChooser(
+                                intent,
+                                "Поделиться через"
+                            )
+
+                            try {
+                                startActivity(chooser)
+                            } catch(e: ActivityNotFoundException) {
+                                val errorMessage = "Нет приложений для данного действия"
+
+                                showToast(
+                                    context = this@MainActivity,
+                                    text = errorMessage
+                                )
+                            }
+                        }
                     }
                 )
             }
@@ -83,7 +115,8 @@ class MainActivity : ComponentActivity() {
 fun MainScreen(
     modifier: Modifier = Modifier,
     onOpenSecondActivity: (String) -> Unit,
-    onCallFriend: (String) -> Unit
+    onCallFriend: (String) -> Unit,
+    onShareText: (String) -> Unit
 ) {
     var inputText by remember { mutableStateOf("") }
 
@@ -113,6 +146,13 @@ fun MainScreen(
         ) {
             Text("Позвонить другу по этому номеру")
         }
+
+        Button(
+            onClick = { onShareText(inputText) },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Поделиться текстом")
+        }
     }
 }
 
@@ -133,7 +173,8 @@ fun MainPreview() {
     VKEducationAndroidKotlinTheme {
         MainScreen(
             onOpenSecondActivity = {},
-            onCallFriend = {}
+            onCallFriend = {},
+            onShareText = {}
         )
     }
 }
