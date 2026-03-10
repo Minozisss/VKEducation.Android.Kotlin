@@ -22,7 +22,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.text.isDigitsOnly
 import com.example.vkeducationandroidkotlin.ui.theme.VKEducationAndroidKotlinTheme
+import androidx.core.net.toUri
 
 class MainActivity : ComponentActivity() {
 
@@ -54,6 +56,22 @@ class MainActivity : ComponentActivity() {
 
                             startActivity(intent)
                         }
+                    },
+                    onCallFriend = { inputText ->
+                        if (inputText.isBlank() || !inputText.isDigitsOnly()) {
+                            val errorMessage = "Введите корректный номер телефона"
+
+                            showToast(
+                                context = this@MainActivity,
+                                text = errorMessage
+                            )
+                        } else {
+                            val intent = Intent(Intent.ACTION_DIAL).apply {
+                                data = "tel:$inputText".toUri()
+                            }
+
+                            startActivity(intent)
+                        }
                     }
                 )
             }
@@ -64,7 +82,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier,
-    onOpenSecondActivity: (String) -> Unit
+    onOpenSecondActivity: (String) -> Unit,
+    onCallFriend: (String) -> Unit
 ) {
     var inputText by remember { mutableStateOf("") }
 
@@ -77,7 +96,7 @@ fun MainScreen(
         OutlinedTextField(
             value = inputText,
             onValueChange = { inputText = it },
-            label = { Text("Введите текст") },
+            label = { Text("Введите текст или номер телефона") },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -86,6 +105,13 @@ fun MainScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Открыть Second Activity")
+        }
+
+        Button(
+            onClick = { onCallFriend(inputText) },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Позвонить другу по этому номеру")
         }
     }
 }
@@ -105,6 +131,9 @@ fun showToast(
 @Composable
 fun MainPreview() {
     VKEducationAndroidKotlinTheme {
-        MainScreen { }
+        MainScreen(
+            onOpenSecondActivity = {},
+            onCallFriend = {}
+        )
     }
 }
