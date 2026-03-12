@@ -1,4 +1,4 @@
-package com.example.vkeducationandroidkotlin
+package com.example.vkeducationandroidkotlin.feature.store
 
 import androidx.compose.ui.graphics.vector.ImageVector
 

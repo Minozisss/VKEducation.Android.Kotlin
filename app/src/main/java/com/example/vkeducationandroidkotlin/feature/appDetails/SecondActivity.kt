@@ -1,26 +1,25 @@
-package com.example.vkeducationandroidkotlin
+package com.example.vkeducationandroidkotlin.feature.appDetails
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.ui.Modifier
 import com.example.vkeducationandroidkotlin.ui.theme.VKEducationAndroidKotlinTheme
 
-class MainActivity : ComponentActivity() {
+class SecondActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             VKEducationAndroidKotlinTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    StoreView(
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                AppDetailsScreen(
+                    Modifier
+                        .fillMaxSize()
+                        .safeDrawingPadding()
+                )
             }
         }
     }

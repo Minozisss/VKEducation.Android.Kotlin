@@ -1,6 +1,7 @@
-package com.example.vkeducationandroidkotlin
+package com.example.vkeducationandroidkotlin.feature.store
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,17 +24,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+private val AppCellMinHeight = 88.dp
+private val AppCellIconSize = 72.dp
+private val AppCellHorizontalSpacing = 8.dp
+private val AppCellTitleFontSize = 16.sp
+private val AppCellSubtitleFontSize = 14.sp
+private const val AppCellTextMaxLines = 1
+
 @Composable
 fun AppCell(
     modifier: Modifier,
-    item: AppItem
+    item: AppItem,
+    onClick: () -> Unit = {}
 ) {
-    val iconSize = 64.dp
-
     Row(
         modifier = modifier
-            .heightIn(min = 88.dp)
-            .fillMaxWidth(),
+            .heightIn(min = AppCellMinHeight)
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start
     ) {
@@ -41,23 +49,23 @@ fun AppCell(
             imageVector = item.icon,
             contentDescription = null,
             modifier = Modifier
-                .size(iconSize)
+                .size(AppCellIconSize)
         )
 
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(AppCellHorizontalSpacing))
 
         Column(
             modifier = Modifier
                 .weight(1f)
-                .height(iconSize),
+                .height(AppCellIconSize),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
                 text = item.title,
                 color = Color.Black,
                 fontWeight = FontWeight.SemiBold,
-                fontSize = 16.sp,
-                maxLines = 1,
+                fontSize = AppCellTitleFontSize,
+                maxLines = AppCellTextMaxLines,
                 overflow = TextOverflow.Ellipsis
             )
 
@@ -65,8 +73,8 @@ fun AppCell(
                 text = item.slogan,
                 color = Color.Black,
                 fontWeight = FontWeight.Normal,
-                fontSize = 14.sp,
-                maxLines = 1,
+                fontSize = AppCellSubtitleFontSize,
+                maxLines = AppCellTextMaxLines,
                 overflow = TextOverflow.Ellipsis
             )
 
@@ -74,8 +82,8 @@ fun AppCell(
                 text = item.category,
                 color = Color.Gray,
                 fontWeight = FontWeight.Normal,
-                fontSize = 14.sp,
-                maxLines = 1,
+                fontSize = AppCellSubtitleFontSize,
+                maxLines = AppCellTextMaxLines,
                 overflow = TextOverflow.Ellipsis
             )
         }

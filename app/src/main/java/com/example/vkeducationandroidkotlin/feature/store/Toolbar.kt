@@ -1,4 +1,4 @@
-package com.example.vkeducationandroidkotlin
+package com.example.vkeducationandroidkotlin.feature.store
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -28,6 +28,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+private val ToolbarHeight = 92.dp
+private val ToolbarHorizontalPadding = 16.dp
+private val ToolbarIconTextSpacing = 8.dp
+private val ToolbarTitleFontSize = 20.sp
+private const val ToolbarTitle = "RuStore"
+private const val ToolbarBlueGradientStartAlpha = 0.3f
+
+private val IconBackgroundSize = 30.dp
+private val IconBackgroundCornerRadius = 4.dp
+private val IconBackgroundPadding = 2.dp
+
 @Composable
 fun Toolbar(
     modifier: Modifier = Modifier,
@@ -39,13 +50,13 @@ fun Toolbar(
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        Color.Blue.copy(alpha = 0.3f),
+                        Color.Blue.copy(alpha = ToolbarBlueGradientStartAlpha),
                         Color.Blue
                     )
                 )
             )
-            .height(92.dp)
-            .padding(horizontal = 16.dp)
+            .height(ToolbarHeight)
+            .padding(horizontal = ToolbarHorizontalPadding)
             .statusBarsPadding(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
@@ -60,13 +71,13 @@ fun Toolbar(
             )
 
             Spacer(
-                modifier = Modifier.width(8.dp)
+                modifier = Modifier.width(ToolbarIconTextSpacing)
             )
 
             Text(
-                "RuStore",
+                ToolbarTitle,
                 color = Color.White,
-                fontSize = 20.sp,
+                fontSize = ToolbarTitleFontSize,
                 fontWeight = FontWeight.Bold
             )
         }
@@ -95,12 +106,12 @@ fun IconWithBackground(
         contentDescription = null,
         tint = tint,
         modifier = modifier
-            .size(30.dp)
+            .size(IconBackgroundSize)
             .background(
                 color = backgroundColor,
-                shape = RoundedCornerShape(4.dp)
+                shape = RoundedCornerShape(IconBackgroundCornerRadius)
             )
-            .padding(2.dp)
+            .padding(IconBackgroundPadding)
     )
 }
 

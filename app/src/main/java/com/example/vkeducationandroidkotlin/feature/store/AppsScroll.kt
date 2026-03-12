@@ -1,4 +1,4 @@
-package com.example.vkeducationandroidkotlin
+package com.example.vkeducationandroidkotlin.feature.store
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
@@ -16,10 +16,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+private val AppsScrollContentPaddingHorizontal = 16.dp
+private val AppsScrollContentPaddingVertical = 16.dp
+private val AppsScrollItemSpacing = 8.dp
+private val AppsScrollDividerThickness = 1.dp
+
 @Composable
 fun AppsScroll(
     modifier: Modifier = Modifier,
-    items: List<AppItem>
+    items: List<AppItem>,
+    onAppClick: (AppItem) -> Unit = {}
 ) {
     LazyColumn(
         modifier = modifier
@@ -28,25 +34,28 @@ fun AppsScroll(
                 color = Color.White
             ),
         contentPadding = PaddingValues(
-            horizontal = 16.dp,
-            vertical = 16.dp
+            horizontal = AppsScrollContentPaddingHorizontal,
+            vertical = AppsScrollContentPaddingVertical
         )
     ) {
         itemsIndexed(items) { index, app ->
             AppCell(
                 modifier = Modifier,
-                item = app
+                item = app,
+                onClick = {
+                    onAppClick(app)
+                }
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(AppsScrollItemSpacing))
 
             if (index < items.lastIndex) {
                 HorizontalDivider(
-                    thickness = 1.dp,
+                    thickness = AppsScrollDividerThickness,
                     color = Color.LightGray
                 )
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(AppsScrollItemSpacing))
             }
         }
     }
