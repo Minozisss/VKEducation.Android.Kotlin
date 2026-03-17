@@ -21,6 +21,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.vkeducationandroidkotlin.R
+import com.example.vkeducationandroidkotlin.domain.App
+import com.example.vkeducationandroidkotlin.domain.Category
 import com.example.vkeducationandroidkotlin.ui.theme.VKEducationAndroidKotlinTheme
 
 @Composable
@@ -95,6 +97,7 @@ fun AppDetailsScreen(
 // В будущем заменим этот метод на вызов API.
 private fun getApp(): App = App(
     name = "Гильдия Героев: Экшен ММО РПГ",
+    slogan = "",
     developer = "VK Play",
     category = Category.GAME,
     ageRating = 12,
@@ -107,7 +110,6 @@ private fun getApp(): App = App(
     ),
     iconUrl = "https://static.rustore.ru/imgproxy/APsbtHxkVa4MZ0DXjnIkSwFQ_KVIcqHK9o3gHY6pvOQ/preset:web_app_icon_62/plain/https://static.rustore.ru/apk/393868735/content/ICON/3f605e3e-f5b3-434c-af4d-77bc5f38820e.png@webp",
     description = "Легендарный рейд героев в Фэнтези РПГ. Станьте героем гильдии и зразите мастера подземелья!"
-
 )
 
 @Preview

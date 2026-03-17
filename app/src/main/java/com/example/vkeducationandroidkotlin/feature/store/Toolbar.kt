@@ -1,5 +1,6 @@
 package com.example.vkeducationandroidkotlin.feature.store
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -12,29 +13,30 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.outlined.GridView
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.vkeducationandroidkotlin.R
+import com.example.vkeducationandroidkotlin.ui.theme.RuStoreWhite
+import com.example.vkeducationandroidkotlin.ui.theme.VKEducationAndroidKotlinTheme
 
 private val ToolbarHeight = 92.dp
 private val ToolbarHorizontalPadding = 16.dp
 private val ToolbarIconTextSpacing = 8.dp
 private val ToolbarTitleFontSize = 20.sp
 private const val ToolbarTitle = "RuStore"
-private const val ToolbarBlueGradientStartAlpha = 0.3f
-
 private val IconBackgroundSize = 30.dp
 private val IconBackgroundCornerRadius = 4.dp
 private val IconBackgroundPadding = 2.dp
@@ -42,18 +44,13 @@ private val IconBackgroundPadding = 2.dp
 @Composable
 fun Toolbar(
     modifier: Modifier = Modifier,
-    someToolbarButtonAction:() -> Unit
+    onClickToolbarButton:() -> Unit // правда не знаю, что она делает :)
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        Color.Blue.copy(alpha = ToolbarBlueGradientStartAlpha),
-                        Color.Blue
-                    )
-                )
+                MaterialTheme.colorScheme.primary,
             )
             .height(ToolbarHeight)
             .padding(horizontal = ToolbarHorizontalPadding)
@@ -64,10 +61,12 @@ fun Toolbar(
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconWithBackground(
-                icon = Icons.Default.Home,
-                tint = Color.Blue,
-                backgroundColor = Color.White
+            // С белым фоном не нашлась. Видимо, уже не используете. Искал на https://www.rustore.ru/media-kit
+            Image(
+                painter = painterResource(id = R.drawable.rustore_icon),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(30.dp)
             )
 
             Spacer(
@@ -76,19 +75,19 @@ fun Toolbar(
 
             Text(
                 ToolbarTitle,
-                color = Color.White,
+                color = RuStoreWhite,
                 fontSize = ToolbarTitleFontSize,
                 fontWeight = FontWeight.Bold
             )
         }
 
         IconButton(
-            onClick = someToolbarButtonAction
+            onClick = onClickToolbarButton
         ) {
             IconWithBackground(
-                icon = Icons.Default.AccountBox,
-                tint = Color.White,
-                backgroundColor = Color.White.copy(alpha = 0.2f)
+                icon = Icons.Outlined.GridView,
+                tint = RuStoreWhite,
+                backgroundColor = MaterialTheme.colorScheme.background.copy(alpha = 0.2f)
             )
         }
     }
@@ -118,5 +117,7 @@ fun IconWithBackground(
 @Preview
 @Composable
 private fun Preview() {
-    Toolbar() { }
+    VKEducationAndroidKotlinTheme() {
+        Toolbar() { }
+    }
 }

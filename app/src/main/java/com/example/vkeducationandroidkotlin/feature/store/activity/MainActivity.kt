@@ -1,10 +1,11 @@
-package com.example.vkeducationandroidkotlin.feature.store
+package com.example.vkeducationandroidkotlin.feature.store.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
@@ -40,7 +41,7 @@ private fun AppNavHost(modifier: Modifier = Modifier) {
         modifier = modifier
     ) {
         composable(Routes.STORE) {
-            StoreView(
+            _root_ide_package_.com.example.vkeducationandroidkotlin.feature.store.StoreView(
                 onAppClick = {
                     navController.navigate(Routes.DETAILS)
                 }
@@ -49,6 +50,9 @@ private fun AppNavHost(modifier: Modifier = Modifier) {
 
         composable(Routes.DETAILS) {
             AppDetailsScreen(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .safeDrawingPadding(),
                 onBackClick = {
                     navController.popBackStack()
                 }
