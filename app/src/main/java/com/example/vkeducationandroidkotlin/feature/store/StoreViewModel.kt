@@ -4,10 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vkeducationandroidkotlin.domain.App
 import com.example.vkeducationandroidkotlin.domain.Category
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class StoreViewModel : ViewModel() {
@@ -15,6 +17,11 @@ class StoreViewModel : ViewModel() {
         StoreState.Loading
     )
     val state: StateFlow<StoreState> = _state.asStateFlow()
+
+    private val _events: Channel<StoreEvents> = Channel(
+        Channel.BUFFERED
+    )
+    val events = _events.receiveAsFlow()
 
     init {
         loadApps()
@@ -33,6 +40,16 @@ class StoreViewModel : ViewModel() {
             }.onFailure {
                 _state.value = StoreState.Error
             }
+        }
+    }
+
+    fun showSnackbar() {
+        viewModelScope.launch {
+            _events.send(
+                StoreEvents.ShowSnackbar(
+                    message = "Это RuStore"
+                )
+            )
         }
     }
 

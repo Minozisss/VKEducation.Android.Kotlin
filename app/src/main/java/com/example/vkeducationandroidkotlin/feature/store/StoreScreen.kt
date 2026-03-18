@@ -4,12 +4,18 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,33 +36,55 @@ fun StoreScreen(
     onAppClick: (App) -> Unit
 ) {
     val viewModel: StoreViewModel = viewModel()
-
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val snackbarHostState = remember { SnackbarHostState() }
 
-    when (val currentState = state) {
-        is StoreState.Content -> {
-            StoreContent(
-                modifier = Modifier,
-                apps = currentState.apps,
-                onAppClick = onAppClick
-            )
-        }
-        StoreState.Error -> {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text("Some Error")
+    LaunchedEffect(Unit) {
+        viewModel.events.collect { event ->
+            when (event) {
+                is StoreEvents.ShowSnackbar -> {
+                    snackbarHostState.showSnackbar(event.message)
+                }
             }
         }
-        StoreState.Loading -> {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
+    }
+
+    Scaffold(
+        modifier = modifier,
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
+        }
+    ) { innerPadding ->
+        when (val currentState = state) {
+            is StoreState.Content -> {
+                StoreContent(
+                    modifier = Modifier,
+                    apps = currentState.apps,
+                    onClickToolbarLogo = {
+                        viewModel.showSnackbar()
+                    },
+                    onAppClick = onAppClick
+                )
+            }
+            StoreState.Error -> {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(innerPadding),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text("Some Error")
+                }
+            }
+            StoreState.Loading -> {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(innerPadding),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
             }
         }
     }
@@ -66,12 +94,14 @@ fun StoreScreen(
 fun StoreContent(
     modifier: Modifier,
     apps: List<App>,
+    onClickToolbarLogo: () -> Unit,
     onAppClick: (App) -> Unit
 ) {
     Column(
         modifier = modifier
     ) {
         Toolbar(
+            onClickToolbarLogo = onClickToolbarLogo,
             onClickToolbarButton = { } // правда не знаю, что она делает :)
         )
 

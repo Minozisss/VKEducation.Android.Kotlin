@@ -2,6 +2,7 @@ package com.example.vkeducationandroidkotlin.feature.store.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -44,6 +45,7 @@ private val IconBackgroundPadding = 2.dp
 @Composable
 fun Toolbar(
     modifier: Modifier = Modifier,
+    onClickToolbarLogo: () -> Unit,
     onClickToolbarButton:() -> Unit // правда не знаю, что она делает :)
 ) {
     Row(
@@ -56,9 +58,11 @@ fun Toolbar(
             .padding(horizontal = ToolbarHorizontalPadding)
             .statusBarsPadding(),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Row(
+            modifier = Modifier
+                .clickable(onClick = onClickToolbarLogo),
             verticalAlignment = Alignment.CenterVertically
         ) {
             // С белым фоном не нашлась. Видимо, уже не используете. Искал на https://www.rustore.ru/media-kit
@@ -118,6 +122,9 @@ fun IconWithBackground(
 @Composable
 private fun Preview() {
     VKEducationAndroidKotlinTheme() {
-        Toolbar() { }
+        Toolbar(
+            onClickToolbarLogo = {},
+            onClickToolbarButton = {}
+        )
     }
 }
