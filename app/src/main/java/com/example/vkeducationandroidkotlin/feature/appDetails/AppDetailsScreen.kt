@@ -23,6 +23,12 @@ import androidx.compose.ui.unit.dp
 import com.example.vkeducationandroidkotlin.R
 import com.example.vkeducationandroidkotlin.domain.App
 import com.example.vkeducationandroidkotlin.domain.Category
+import com.example.vkeducationandroidkotlin.feature.appDetails.views.AppDescription
+import com.example.vkeducationandroidkotlin.feature.appDetails.views.AppDetailsHeader
+import com.example.vkeducationandroidkotlin.feature.appDetails.views.Developer
+import com.example.vkeducationandroidkotlin.feature.appDetails.views.InstallButton
+import com.example.vkeducationandroidkotlin.feature.appDetails.views.ScreenshotsList
+import com.example.vkeducationandroidkotlin.feature.appDetails.views.Toolbar
 import com.example.vkeducationandroidkotlin.ui.theme.VKEducationAndroidKotlinTheme
 
 @Composable

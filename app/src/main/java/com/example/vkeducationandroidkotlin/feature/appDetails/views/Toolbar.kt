@@ -1,4 +1,4 @@
-package com.example.vkeducationandroidkotlin.feature.appDetails
+package com.example.vkeducationandroidkotlin.feature.appDetails.views
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

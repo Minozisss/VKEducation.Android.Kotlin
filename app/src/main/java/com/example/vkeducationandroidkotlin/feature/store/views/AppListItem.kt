@@ -1,4 +1,4 @@
-package com.example.vkeducationandroidkotlin.feature.store
+package com.example.vkeducationandroidkotlin.feature.store.views
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding

@@ -1,4 +1,4 @@
-package com.example.vkeducationandroidkotlin.feature.store
+package com.example.vkeducationandroidkotlin.feature.store.views
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -87,7 +87,7 @@ fun AppCell(
 
             Text(
                 text = getCategoryText(item.category),
-                color = MaterialTheme.colorScheme.outline,
+                color = MaterialTheme.colorScheme.secondary,
                 fontWeight = FontWeight.Normal,
                 fontSize = AppCellSubtitleFontSize,
                 maxLines = AppCellTextMaxLines,

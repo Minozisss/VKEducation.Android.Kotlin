@@ -11,6 +11,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.vkeducationandroidkotlin.domain.App
 import com.example.vkeducationandroidkotlin.domain.Category
+import com.example.vkeducationandroidkotlin.feature.store.views.AppList
+import com.example.vkeducationandroidkotlin.feature.store.views.Toolbar
 import com.example.vkeducationandroidkotlin.ui.theme.VKEducationAndroidKotlinTheme
 
 private val StoreListTopCornerRadius = 24.dp

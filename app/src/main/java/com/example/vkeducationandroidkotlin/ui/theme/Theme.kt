@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 
 private val DarkColorScheme = darkColorScheme(
     primary = RuStoreBlue,
-    secondary = RuStorePurple,
+    secondary = RuStoreGray,
     tertiary = RuStoreMagenta,
 
     background = RuStoreBlack,
@@ -26,7 +26,7 @@ private val DarkColorScheme = darkColorScheme(
 
 private val LightColorScheme = lightColorScheme(
     primary = RuStoreBlue,
-    secondary = RuStorePurple,
+    secondary = RuStoreGray,
     tertiary = RuStoreMagenta,
 
     background = RuStoreWhite,
