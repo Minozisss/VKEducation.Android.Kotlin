@@ -7,6 +7,7 @@
     <string name="category_game">Игра</string>
     <string name="category_finance">Финансы</string>
     <string name="category_tools">Инструменты</string>
+    <string name="category_other">Другое</string>
     <string name="category_transportation">Транспорт</string>
     <string name="install">Установить</string>
     <string name="app_details_description">Описание</string>
