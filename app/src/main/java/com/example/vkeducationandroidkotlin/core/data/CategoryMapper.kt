@@ -1,8 +1,9 @@
 package com.example.vkeducationandroidkotlin.core.data
 
 import com.example.vkeducationandroidkotlin.core.domain.Category
+import javax.inject.Inject
 
-class CategoryMapper {
+class CategoryMapper @Inject constructor() {
     fun mapToDomain(category: String): Category {
         return when (category) {
             "App" -> Category.APP

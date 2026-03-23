@@ -21,8 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.vkeducationandroidkotlin.feature.store.domain.App
 import com.example.vkeducationandroidkotlin.feature.store.presentation.views.AppList
 import com.example.vkeducationandroidkotlin.feature.store.presentation.views.Toolbar
@@ -35,7 +35,7 @@ fun StoreScreen(
     modifier: Modifier = Modifier,
     onAppClick: (id: String) -> Unit
 ) {
-    val viewModel: StoreViewModel = viewModel()
+    val viewModel: StoreViewModel = hiltViewModel()
     val state by viewModel.state.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
 

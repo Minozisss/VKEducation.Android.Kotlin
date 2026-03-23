@@ -1,6 +1,8 @@
 package com.example.vkeducationandroidkotlin.feature.store.data
 
-class AppApi {
+import javax.inject.Inject
+
+class AppApi @Inject constructor() {
     suspend fun get(): List<AppDto> {
         val apps: List<AppDto> = listOf(
             AppDto(

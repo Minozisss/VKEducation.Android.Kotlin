@@ -2,12 +2,10 @@ package com.example.vkeducationandroidkotlin.feature.store.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.vkeducationandroidkotlin.core.data.CategoryMapper
-import com.example.vkeducationandroidkotlin.feature.store.data.AppApi
-import com.example.vkeducationandroidkotlin.feature.store.data.AppMapper
-import com.example.vkeducationandroidkotlin.feature.store.data.AppRepositoryImplMock
 import com.example.vkeducationandroidkotlin.feature.store.domain.App
 import com.example.vkeducationandroidkotlin.feature.store.domain.AppRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,14 +14,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-class StoreViewModel : ViewModel() {
-    private val appRepository: AppRepository = AppRepositoryImplMock(
-        api = AppApi(),
-        mapper = AppMapper(
-            categoryMapper = CategoryMapper()
-        )
-    )
-
+@HiltViewModel
+class StoreViewModel @Inject constructor(
+    private val appRepository: AppRepository
+) : ViewModel() {
     private val _state: MutableStateFlow<StoreState> = MutableStateFlow(
         StoreState.Loading
     )
