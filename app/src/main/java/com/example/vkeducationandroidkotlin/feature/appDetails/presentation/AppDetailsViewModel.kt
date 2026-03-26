@@ -3,9 +3,8 @@ package com.example.vkeducationandroidkotlin.feature.appDetails.presentation
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.vkeducationandroidkotlin.feature.appDetails.domain.AppDetailRepository
+import com.example.vkeducationandroidkotlin.feature.appDetails.domain.GetAppDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AppDetailsViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val appDetailRepository: AppDetailRepository
+    private val getAppDetailsUseCase: GetAppDetailsUseCase
 ): ViewModel() {
     private val _state: MutableStateFlow<AppDetailsState> = MutableStateFlow(
         AppDetailsState.Loading
@@ -32,8 +31,7 @@ class AppDetailsViewModel @Inject constructor(
         viewModelScope.launch {
             _state.value = AppDetailsState.Loading
             runCatching {
-                delay(1000L) // Условный сценарий загрузки. Было в лекции
-                appDetailRepository.get(id)
+                getAppDetailsUseCase(id)
             }.onSuccess { app ->
                 _state.value = AppDetailsState.Content(app)
             }.onFailure {

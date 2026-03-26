@@ -10,7 +10,7 @@ class AppMapper @Inject constructor(
     fun toDomain(appDto: AppDto): App = App(
         id = appDto.id,
         name = appDto.name,
-        slogan = appDto.slogan,
+        slogan = appDto.description,
         category = categoryMapper.mapToDomain(appDto.category),
         iconUrl = appDto.iconUrl
     )

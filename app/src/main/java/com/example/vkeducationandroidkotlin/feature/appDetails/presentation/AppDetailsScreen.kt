@@ -29,7 +29,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.vkeducationandroidkotlin.R
 import com.example.vkeducationandroidkotlin.core.domain.Category
-import com.example.vkeducationandroidkotlin.feature.appDetails.domain.AppDetail
+import com.example.vkeducationandroidkotlin.feature.appDetails.domain.AppDetails
 import com.example.vkeducationandroidkotlin.feature.appDetails.presentation.views.AppDescription
 import com.example.vkeducationandroidkotlin.feature.appDetails.presentation.views.AppDetailsHeader
 import com.example.vkeducationandroidkotlin.feature.appDetails.presentation.views.Developer
@@ -49,7 +49,7 @@ fun AppDetailsScreen(
     when (val currentState = state) {
         is AppDetailsState.Content -> {
             AppDetailsContent(
-                appDetail = currentState.appDetail,
+                appDetails = currentState.appDetails,
                 onBackClick = onBackClick
             )
         }
@@ -74,7 +74,7 @@ fun AppDetailsScreen(
 
 @Composable
 fun AppDetailsContent(
-    appDetail: AppDetail,
+    appDetails: AppDetails,
     modifier: Modifier = Modifier.safeDrawingPadding(),
     onBackClick: () -> Unit
 ) {
@@ -94,7 +94,7 @@ fun AppDetailsContent(
         )
         Spacer(Modifier.height(8.dp))
         AppDetailsHeader(
-            appDetail = appDetail,
+            appDetails = appDetails,
             modifier = Modifier.padding(horizontal = 16.dp),
         )
         Spacer(Modifier.height(16.dp))
@@ -108,12 +108,12 @@ fun AppDetailsContent(
         )
         Spacer(Modifier.height(12.dp))
         ScreenshotsList(
-            screenshotUrlList = appDetail.screenshotUrlList,
+            screenshotUrlList = appDetails.screenshotUrlList,
             contentPadding = PaddingValues(horizontal = 16.dp),
         )
         Spacer(Modifier.height(12.dp))
         AppDescription(
-            description = appDetail.description,
+            description = appDetails.description,
             collapsed = descriptionCollapsed,
             onReadMoreClick = {
                 descriptionCollapsed = true
@@ -129,7 +129,7 @@ fun AppDetailsContent(
         )
         Spacer(Modifier.height(12.dp))
         Developer(
-            name = appDetail.developer,
+            name = appDetails.developer,
             onClick = {
                 Toast.makeText(context, underDevelopmentText, Toast.LENGTH_SHORT).show()
             },
@@ -143,14 +143,13 @@ fun AppDetailsContent(
 @Preview
 @Composable
 private fun Preview() {
-    val appDetail = AppDetail(
+    val appDetails = AppDetails(
         id = "1",
         name = "Сбербанк Онлайн - с Салютом",
-        slogan = "Больше чем банк",
         developer = "Сбербанк",
         category = Category.FINANCE,
         ageRating = 18,
-        size = 130.0f,
+        size = 130.0,
         iconUrl = "",
         screenshotUrlList = listOf(),
         description = "Description"
@@ -158,7 +157,7 @@ private fun Preview() {
 
     VKEducationAndroidKotlinTheme {
         AppDetailsContent(
-            appDetail = appDetail,
+            appDetails = appDetails,
             onBackClick = {}
         )
     }
