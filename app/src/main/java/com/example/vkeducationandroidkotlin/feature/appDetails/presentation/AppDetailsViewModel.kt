@@ -24,19 +24,19 @@ class AppDetailsViewModel @Inject constructor(
     private val id: String = checkNotNull(savedStateHandle["id"])
 
     init {
-        loadApp()
+        viewModelScope.launch {
+            loadApp()
+        }
     }
 
-    fun loadApp() {
-        viewModelScope.launch {
-            _state.value = AppDetailsState.Loading
-            runCatching {
-                getAppDetailsUseCase(id)
-            }.onSuccess { app ->
-                _state.value = AppDetailsState.Content(app)
-            }.onFailure {
-                _state.value = AppDetailsState.Error
-            }
+    private suspend fun loadApp() {
+        _state.value = AppDetailsState.Loading
+        runCatching {
+            getAppDetailsUseCase(id)
+        }.onSuccess { app ->
+            _state.value = AppDetailsState.Content(app)
+        }.onFailure {
+            _state.value = AppDetailsState.Error
         }
     }
 }
