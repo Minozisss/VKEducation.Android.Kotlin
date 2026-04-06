@@ -1,4 +1,4 @@
-package com.example.vkeducationandroidkotlin.feature.appDetails
+package com.example.vkeducationandroidkotlin.feature.appDetails.views
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth

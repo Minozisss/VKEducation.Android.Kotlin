@@ -41,7 +41,7 @@ private fun AppNavHost(modifier: Modifier = Modifier) {
         modifier = modifier
     ) {
         composable(Routes.STORE) {
-            _root_ide_package_.com.example.vkeducationandroidkotlin.feature.store.StoreView(
+            _root_ide_package_.com.example.vkeducationandroidkotlin.feature.store.StoreScreen(
                 onAppClick = {
                     navController.navigate(Routes.DETAILS)
                 }
