@@ -29,7 +29,8 @@ import com.example.vkeducationandroidkotlin.ui.theme.VKEducationAndroidKotlinThe
 fun AppDetailsContent(
     appDetails: AppDetails,
     modifier: Modifier = Modifier.safeDrawingPadding(),
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    onToggleWishListClick: () -> Unit,
 ) {
     val context = LocalContext.current
     val underDevelopmentText = stringResource(R.string.under_developement)
@@ -41,6 +42,8 @@ fun AppDetailsContent(
             onBackClick = {
                 onBackClick()
             },
+            isInWishList = appDetails.isInWishList,
+            onWishListClick = onToggleWishListClick,
             onShareClick = {
                 Toast.makeText(context, underDevelopmentText, Toast.LENGTH_SHORT).show()
             },
@@ -111,7 +114,8 @@ private fun Preview() {
     VKEducationAndroidKotlinTheme {
         AppDetailsContent(
             appDetails = appDetails,
-            onBackClick = {}
+            onBackClick = {},
+            onToggleWishListClick = {},
         )
     }
 }

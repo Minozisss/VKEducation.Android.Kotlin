@@ -24,7 +24,8 @@ fun AppDetailsScreen(
         is AppDetailsState.Content -> {
             AppDetailsContent(
                 appDetails = currentState.appDetails,
-                onBackClick = onBackClick
+                onBackClick = onBackClick,
+                onToggleWishListClick = viewModel::toggleWishList,
             )
         }
 
