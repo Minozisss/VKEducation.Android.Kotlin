@@ -25,9 +25,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.vkeducationandroidkotlin.R
+import com.example.vkeducationandroidkotlin.core.domain.Category
 import com.example.vkeducationandroidkotlin.feature.appDetails.domain.AppDetail
 import com.example.vkeducationandroidkotlin.feature.appDetails.presentation.views.AppDescription
 import com.example.vkeducationandroidkotlin.feature.appDetails.presentation.views.AppDetailsHeader
@@ -39,13 +40,9 @@ import com.example.vkeducationandroidkotlin.ui.theme.VKEducationAndroidKotlinThe
 
 @Composable
 fun AppDetailsScreen(
-    id: String,
-    modifier: Modifier = Modifier,
     onBackClick: () -> Unit = {},
 ) {
-    val viewModel: AppDetailsViewModel = viewModel(
-        factory = AppDetailsViewModelFactory(id)
-    )
+    val viewModel: AppDetailsViewModel = hiltViewModel()
 
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -146,10 +143,22 @@ fun AppDetailsContent(
 @Preview
 @Composable
 private fun Preview() {
+    val appDetail = AppDetail(
+        id = "1",
+        name = "Сбербанк Онлайн - с Салютом",
+        slogan = "Больше чем банк",
+        developer = "Сбербанк",
+        category = Category.FINANCE,
+        ageRating = 18,
+        size = 130.0f,
+        iconUrl = "",
+        screenshotUrlList = listOf(),
+        description = "Description"
+    )
+
     VKEducationAndroidKotlinTheme {
-        AppDetailsScreen(
-            id = "1",
-            modifier = Modifier.fillMaxSize(),
+        AppDetailsContent(
+            appDetail = appDetail,
             onBackClick = {}
         )
     }

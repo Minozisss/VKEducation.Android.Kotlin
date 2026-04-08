@@ -2,8 +2,9 @@ package com.example.vkeducationandroidkotlin.feature.store.data
 
 import com.example.vkeducationandroidkotlin.feature.store.domain.App
 import com.example.vkeducationandroidkotlin.feature.store.domain.AppRepository
+import javax.inject.Inject
 
-class AppRepositoryImplMock(
+class AppRepositoryImplMock @Inject constructor(
     private val api: AppApi,
     private val mapper: AppMapper
 ) : AppRepository {

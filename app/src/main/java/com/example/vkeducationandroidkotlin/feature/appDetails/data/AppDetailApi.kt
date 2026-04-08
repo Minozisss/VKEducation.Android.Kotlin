@@ -1,7 +1,9 @@
 package com.example.vkeducationandroidkotlin.feature.appDetails.data
 
+import javax.inject.Inject
+
 // Фейковый backend
-class AppDetailApi {
+class AppDetailApi @Inject constructor() {
     suspend fun get(id: String): AppDetailDto {
         return appDetails.first { it.id == id }
     }

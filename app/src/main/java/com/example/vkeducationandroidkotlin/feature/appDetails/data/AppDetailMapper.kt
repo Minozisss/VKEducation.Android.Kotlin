@@ -2,8 +2,9 @@ package com.example.vkeducationandroidkotlin.feature.appDetails.data
 
 import com.example.vkeducationandroidkotlin.core.data.CategoryMapper
 import com.example.vkeducationandroidkotlin.feature.appDetails.domain.AppDetail
+import javax.inject.Inject
 
-class AppDetailMapper(
+class AppDetailMapper @Inject constructor(
     private val categoryMapper: CategoryMapper
 ) {
     fun toDomain(dto: AppDetailDto): AppDetail = AppDetail(

@@ -21,8 +21,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.vkeducationandroidkotlin.core.domain.Category
 import com.example.vkeducationandroidkotlin.feature.store.domain.App
 import com.example.vkeducationandroidkotlin.feature.store.presentation.views.AppList
 import com.example.vkeducationandroidkotlin.feature.store.presentation.views.Toolbar
@@ -32,10 +33,9 @@ private val StoreListTopCornerRadius = 24.dp
 
 @Composable
 fun StoreScreen(
-    modifier: Modifier = Modifier,
     onAppClick: (id: String) -> Unit
 ) {
-    val viewModel: StoreViewModel = viewModel()
+    val viewModel: StoreViewModel = hiltViewModel()
     val state by viewModel.state.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -50,7 +50,7 @@ fun StoreScreen(
     }
 
     Scaffold(
-        modifier = modifier,
+        modifier = Modifier,
         snackbarHost = {
             SnackbarHost(hostState = snackbarHostState)
         }
@@ -92,7 +92,7 @@ fun StoreScreen(
 
 @Composable
 fun StoreContent(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     apps: List<App>,
     onClickToolbarLogo: () -> Unit,
     onAppClick: (id: String) -> Unit
@@ -123,7 +123,27 @@ fun StoreContent(
 @Preview
 @Composable
 private fun Preview() {
+     val apps: List<App> = listOf(
+        App(
+            id = "1",
+            name = "Сбербанк Онлайн - с Салютом",
+            slogan = "Больше чем банк",
+            category = Category.FINANCE,
+            iconUrl = ""
+        ),
+        App(
+            id = "2",
+            name = "Яндекс Браузер",
+            slogan = "Быстрый и безопасный браузер",
+            category = Category.TOOLS,
+            iconUrl = ""
+        )
+    )
     VKEducationAndroidKotlinTheme() {
-        StoreScreen() {}
+        StoreContent(
+            apps = apps,
+            onClickToolbarLogo = {},
+            onAppClick = {}
+        )
     }
 }
