@@ -8,7 +8,7 @@ class AppRepositoryImplMock @Inject constructor(
     private val api: AppApi,
     private val mapper: AppMapper
 ) : AppRepository {
-    override suspend fun get(): List<App> {
+    override suspend fun getApps(): List<App> {
         val dtoApps: List<AppDto> = api.get()
         val apps: List<App> = dtoApps.map { mapper.toDomain(it) }
         return apps

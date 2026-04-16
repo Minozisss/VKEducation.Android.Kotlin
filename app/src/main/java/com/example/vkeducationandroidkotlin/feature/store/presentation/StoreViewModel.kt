@@ -3,20 +3,19 @@ package com.example.vkeducationandroidkotlin.feature.store.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vkeducationandroidkotlin.feature.store.domain.App
-import com.example.vkeducationandroidkotlin.feature.store.domain.AppRepository
+import com.example.vkeducationandroidkotlin.feature.store.domain.GetAppsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class StoreViewModel @Inject constructor(
-    private val appRepository: AppRepository
+    private val getAppsUseCase: GetAppsUseCase
 ) : ViewModel() {
     private val _state: MutableStateFlow<StoreState> = MutableStateFlow(
         StoreState.Loading
@@ -36,10 +35,7 @@ class StoreViewModel @Inject constructor(
         viewModelScope.launch {
             runCatching {
                 _state.value = StoreState.Loading
-
-                delay(1000L) // Условный сценарий загрузки. Было в лекции
-
-                val apps: List<App> = appRepository.get()
+                val apps: List<App> = getAppsUseCase()
 
                 _state.value = StoreState.Content(apps)
             }.onFailure {

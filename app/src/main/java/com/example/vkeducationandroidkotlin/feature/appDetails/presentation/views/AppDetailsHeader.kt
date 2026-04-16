@@ -24,14 +24,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.example.vkeducationandroidkotlin.R
-import com.example.vkeducationandroidkotlin.feature.appDetails.domain.AppDetail
+import com.example.vkeducationandroidkotlin.feature.appDetails.domain.AppDetails
 import com.example.vkeducationandroidkotlin.core.domain.Category
 import com.example.vkeducationandroidkotlin.ui.theme.VKEducationAndroidKotlinTheme
 import kotlin.math.roundToInt
 
 @Composable
 fun AppDetailsHeader(
-    appDetail: AppDetail,
+    appDetails: AppDetails,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -39,7 +39,7 @@ fun AppDetailsHeader(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         AsyncImage(
-            model = appDetail.iconUrl,
+            model = appDetails.iconUrl,
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -49,26 +49,26 @@ fun AppDetailsHeader(
         Spacer(Modifier.width(16.dp))
         Column {
             Text(
-                text = getCategoryText(appDetail.category),
+                text = getCategoryText(appDetails.category),
                 color = MaterialTheme.colorScheme.secondary,
                 fontSize = 12.sp,
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                text = appDetail.name,
+                text = appDetails.name,
                 fontWeight = FontWeight.Bold,
                 style = MaterialTheme.typography.headlineSmall,
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                text = appDetail.developer,
+                text = appDetails.developer,
                 fontSize = 12.sp,
             )
             Spacer(Modifier.height(4.dp))
             Row {
                 Column(Modifier.width(IntrinsicSize.Max)) {
                     Text(
-                        text = "${appDetail.ageRating}+",
+                        text = "${appDetails.ageRating}+",
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth(),
                     )
@@ -77,7 +77,7 @@ fun AppDetailsHeader(
                 }
                 Spacer(Modifier.width(12.dp))
                 Column {
-                    Text(text = "${appDetail.size.roundToInt()} MB")
+                    Text(text = "${appDetails.size.roundToInt()} MB")
                     Spacer(Modifier.height(4.dp))
                     Text(text = stringResource(R.string.app_details_size))
                 }
@@ -101,14 +101,13 @@ private fun getCategoryText(category: Category): String = when (category) {
 @Preview
 @Composable
 private fun Preview() {
-    val appDetail = AppDetail(
+    val appDetails = AppDetails(
         id = "1",
         name = "Гильдия Героев: Экшен ММО РПГ",
-        slogan = "",
         developer = "VK Play",
         category = Category.GAME,
         ageRating = 12,
-        size = 223.7f,
+        size = 223.7,
         screenshotUrlList = listOf(
             "https://static.rustore.ru/imgproxy/-y8kd-4B6MQ-1OKbAbnoAIMZAzvoMMG9dSiHMpFaTBc/preset:web_scr_lnd_335/plain/https://static.rustore.ru/apk/393868735/content/SCREENSHOT/dfd33017-e90d-4990-aa8c-6f159d546788.jpg@webp",
             "https://static.rustore.ru/imgproxy/dZCvNtRKKFpzOmGlTxLszUPmwi661IhXynYZGsJQvLw/preset:web_scr_lnd_335/plain/https://static.rustore.ru/apk/393868735/content/SCREENSHOT/60ec4cbc-dcf6-4e69-aa6f-cc2da7de1af6.jpg@webp",
@@ -119,6 +118,6 @@ private fun Preview() {
         description = "Легендарный рейд героев в Фэнтези РПГ. Станьте героем гильдии и зразите мастера подземелья!"
     )
     VKEducationAndroidKotlinTheme {
-        AppDetailsHeader(appDetail = appDetail, modifier = Modifier.fillMaxWidth())
+        AppDetailsHeader(appDetails = appDetails, modifier = Modifier.fillMaxWidth())
     }
 }

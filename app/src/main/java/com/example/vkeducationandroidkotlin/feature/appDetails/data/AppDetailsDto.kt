@@ -1,14 +1,18 @@
 package com.example.vkeducationandroidkotlin.feature.appDetails.data
 
-data class AppDetailDto(
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class AppDetailsDto(
     val id: String,
     val name: String,
-    val slogan: String,
     val developer: String,
     val category: String,
     val ageRating: Int,
-    val size: Float,
+    val size: Double,
     val iconUrl: String,
-    val screenshotUrlList: List<String>,
+    @SerialName("screenshotUrlList")
+    val screenshots: List<String>,
     val description: String
 )

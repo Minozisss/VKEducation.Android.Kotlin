@@ -13,7 +13,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.VKEducationAndroidKotlin">
+        android:theme="@style/Theme.VKEducationAndroidKotlin"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".activity.MainActivity"
             android:exported="true"
