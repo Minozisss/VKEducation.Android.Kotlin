@@ -1,4 +1,4 @@
-package com.example.vkeducationandroidkotlin.feature.store.presentation.views
+package com.example.vkeducationandroidkotlin.feature.store.presentation.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

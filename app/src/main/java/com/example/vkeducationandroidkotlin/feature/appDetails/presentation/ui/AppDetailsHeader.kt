@@ -1,4 +1,4 @@
-package com.example.vkeducationandroidkotlin.feature.appDetails.presentation.views
+package com.example.vkeducationandroidkotlin.feature.appDetails.presentation.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
